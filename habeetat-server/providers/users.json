@@ -1,11 +1,5 @@
 [
   {
-    "username": "Chick",
-    "name": "Simone",
-    "surname": "Ingenito",
-    "age": 18
-  },
-  {
     "username": "albeada",
     "name": "Pio",
     "surname": "Amato",
@@ -15,6 +9,12 @@
     "username": "Distructor",
     "name": "Luca",
     "surname": "Amato",
+    "age": 18
+  },
+  {
+    "username": "Chick",
+    "name": "Simone",
+    "surname": "Ingenito",
     "age": 18
   }
 ]

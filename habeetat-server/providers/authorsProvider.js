@@ -17,18 +17,18 @@ function addUser(username, name, surname, age){
             "age": parseInt(age)
         };
         users.push(userA);
-        fs.writeFileSync('users.json', JSON.stringify(users, null, 2), 'utf-8');
+        fs.writeFileSync('/home/luke08/progetti/node/habeetat-backend/habeetat-server/providers/users.json', JSON.stringify(users, null, 2), 'utf-8');
     }
     else{
         throw new Error("L'utente già esiste");
     }
-    return JSON.parse(fs.readFileSync('users.json', {encoding: 'utf8'}));
+    return JSON.parse(fs.readFileSync('/home/luke08/progetti/node/habeetat-backend/habeetat-server/providers/users.json', {encoding: 'utf8'}));
 }
 function removeUser(username){
     let users= getAllUsers();
     users= users.filter(users => users.username !== username);
-    fs.writeFileSync('users.json', JSON.stringify(users, null, 2), 'utf-8');
-    return JSON.parse(fs.readFileSync('users.json', {encoding: 'utf8'}));
+    fs.writeFileSync('/home/luke08/progetti/node/habeetat-backend/habeetat-server/providers/users.json', JSON.stringify(users, null, 2), 'utf-8');
+    return JSON.parse(fs.readFileSync('/home/luke08/progetti/node/habeetat-backend/habeetat-server/providers/users.json', {encoding: 'utf8'}));
 }
 function updateUser(username, name, surname, age){
     const user={        
@@ -40,16 +40,19 @@ function updateUser(username, name, surname, age){
     let userF= getUser(username);
     if(!userF)
         throw new Error("non esiste");
-    const UserN= getAllUsers().map(u => {
-        if(user.username === username){
+    const users= getAllUsers().map(u => {
+        if(u.username === username){
             userF={
-                ...user,
+                ...u,
                 "name": name ? name : u.name,
                 "surname": surname ? surname : u.surname,
                 "age": age ? age : u.age
                 }
+            return userF;
             }
+        return u;
     });
+    fs.writeFileSync('/home/luke08/progetti/node/habeetat-backend/habeetat-server/providers/users.json', JSON.stringify(users, null, 2), 'utf-8');
     return userF;
 }
 module.exports = {

@@ -12,7 +12,10 @@ app.get('/authors', (req, res) => {
 app.get("/authors/:username", (req, res) => {
     const { username } = req.params;
     console.log(username);
-    res.json(authorsProvider.getUser(username));
+    const user=authorsProvider.getUser(username);
+    if(!user)
+        res.status(404).json({"message":"User not found"});
+    res.json(user);
 });
 
 app.listen(port, () => {
@@ -22,23 +25,25 @@ app.listen(port, () => {
 app.patch("/authors/:username", (req, res) => {
     const { username } = req.params;
     const { name, surname, age } = req.body;
-
-    res.json(authorsProvider.updateUser(username, name, surname, age));
+    const user=authorsProvider.updateUser(username, name, surname, age);
+    res.json(user);
 });
 
 app.put("/authors/:username", (req, res) => {
     const { username } = req.params;
     const { name, surname, age } = req.body;
-
-    res.json(authorsProvider.updateUser(username, name, surname, age));
+    const user=authorsProvider.updateUser(username, name, surname, age);
+    res.json(user);
 });
 
 app.delete("/authors/:username", (req, res) => {
     const { username } = req.params;
-    res.json(authorsProvider.removeUser(username));
+    const user=authorsProvider.removeUser(username);
+    res.json(user);
 });
 
 app.post("/authors", (req, res) => {
     const { username, name, surname, age } = req.body;
-    res.json(authorsProvider.addUser(username, name, surname, age));
+    const user=authorsProvider.addUser(username, name, surname, age);
+    res.json(user);
 });
